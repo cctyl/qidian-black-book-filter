@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="./assets/img/logo.png" width="500" height="300">
+    <img src="./assets/img/main.png" width="500" height="300">
 </p>
 <h1 align="center">起点小说黑名单记录</h1>
 <p align="center">
