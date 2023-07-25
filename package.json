@@ -1,0 +1,27 @@
+{
+  "name": "http-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.3",
+    "http-proxy-middleware": "^2.0.3",
+    "js-base64": "^3.7.2",
+    "mongoose": "^6.0.12",
+    "request": "^2.88.2",
+    "superagent": "^8.0.0",
+    "superagent-charset": "^1.2.0",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.12"
+  }
+}

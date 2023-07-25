@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <!-- import CSS -->
+    <!-- 引入样式文件 -->
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/vant@2.12/lib/index.css"
+    />
+
+
+    <!-- import Vue before Element -->
+    <script src="./js/vue.js"></script>
+    <script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+
+
+    <!-- import JavaScript -->
+    <script src="./js/axios.js"></script>
+
+    <!--限制视口 -->
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <!--重置基本样式 -->
+    <link rel="stylesheet" href="./css/reset.css">
+
+    <!-- 解决移动端点击延迟0.3秒的问题 -->
+    <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+    <script>
+        if ('addEventListener' in document) {
+            document.addEventListener('DOMContentLoaded', function () {
+                FastClick.attach(document.body)
+            }, false)
+        }
+        if (!window.Promise) {
+            document.writeln(`<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"><` + `/` + `script>`);
+        }
+    </script>
+
+
+</head>
+<body>
+<div id="app">
+
+
+    <div class="list">
+
+
+        <div class="item van-hairline--surround" v-for="item in bookList" :key="item.bid">
+            <div class="left " @click="toBoolDetail(item.bid)">
+                                                <div class="bname">{{item.bName}}</div>
+                                                <div class="desc">{{item.desc}}</div>
+<!--                <div class="bname">{{item.bid}}</div>-->
+<!--                <div class="desc">这是一本书这是一本书这是一本书这是一本书这是一本书这是一本书这是一本书这是一本书这是一本书这是一本书</div>-->
+
+
+            </div>
+            <div class="right">
+                <van-button type="warning" @click="pullBlack(item)">拉黑</van-button>
+            </div>
+
+        </div>
+
+
+    </div>
+    <van-pagination v-model="pageNum" :total-items="15000" :items-per-page="20" force-ellipses @change="changePage"/>
+
+</div>
+</body>
+
+<script>
+
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                bookList: [],
+                pageNum: 1,
+            }
+        },
+        mounted() {
+
+            this.pageNum = localStorage.getItem('pageNum')? localStorage.getItem('pageNum'):1
+            vant.Toast('上次浏览到第' + this.pageNum + "页");
+
+            this.getData()
+
+
+        },
+        methods: {
+
+            /**
+             * 简单的对axios进行封装
+             * @param url
+             * @param data
+             * @param type
+             * @returns {Promise<unknown>}
+             */
+            ajax(url, data = {}, type = "GET") {
+                return new Promise(function (resolve, reject) {
+                    axios({
+                        method: type,
+                        url: url,
+                        data: data,
+                        withCredentials: true,
+                    }).then(response => {
+                        resolve(response.data)
+                    }).catch(reason => {
+                        console.log("Error: ")
+                        console.log(reason)
+                        reject(reason)
+                    })
+                })
+            },
+            async getData() {
+
+                let result = await this.ajax("/getRank?pageNum=" + this.pageNum);
+                this.bookList = result
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            },
+
+            /**
+             * 页码改变
+             */
+            changePage() {
+                console.log("当前页码：" + this.pageNum)
+                localStorage.setItem('pageNum', this.pageNum)
+                this.getData()
+
+            },
+
+            /**
+             * 拉黑
+             */
+            pullBlack(item) {
+
+                let param = {
+                    "bid": item.bid,
+                    "bName": item.bName,
+                    "desc": item.desc
+
+                }
+                this.ajax("/addBlack", item, "POST");
+
+                //页码上数据也要删除掉
+                for (let i = 0; i < this.bookList.length; i++) {
+                    let temp = this.bookList[i]
+                    if (temp.bid === item.bid) {
+                        console.log("过滤了：" + temp.bid)
+                        this.bookList.splice(i, 1)
+                        continue
+                    }
+                }
+            },
+
+            /**
+             * 跳转到书籍详情页面
+             * @param bid
+             */
+            toBoolDetail(bid) {
+
+                console.log("bid为：" + bid)
+                window.location.href = `https://m.qidian.com/book/${bid}.html`;
+            }
+
+
+        }
+    })
+</script>
+<style>
+
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+
+    #app {
+        width: 100%;
+        height: 100%;
+    }
+
+    .item {
+        padding: 5px;
+
+
+        display: flex;
+        flex-direction: row;
+    }
+
+    .left {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: 4;
+
+
+    }
+
+    .left .bname {
+        font-weight: bold;
+        padding-left: 5px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 15px;
+    }
+
+    .left .desc {
+        font-size: 13px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .right .van-button {
+        height: 100%;
+    }
+
+
+</style>
+</html>
