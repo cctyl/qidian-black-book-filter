@@ -1,6 +1,3 @@
-<p align="center">
-    <img src="./assets/img/main.png" width="500" height="300">
-</p>
 <h1 align="center">起点小说黑名单记录</h1>
 <p align="center">
     <a href="https://github.com/cctyl/qidian-black-book-filter/issues" style="text-decoration:none">
@@ -47,7 +44,7 @@
 对了，默认是男频的排行榜接口，女频没有做呢...
 
 # 截图
-- 主界面 ![主界面](/assets/img/main.png)
+- 主界面 ![主界面](./assets/img/main.png)
 
 ​    
 # 食用
