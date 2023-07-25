@@ -1,4 +1,4 @@
-<h1 align="center">起点小说黑名单记录</h1>
+<h1 align="center">起点黑名单小说记录与过滤</h1>
 <p align="center">
     <a href="https://github.com/cctyl/qidian-black-book-filter/issues" style="text-decoration:none">
         <img src="https://img.shields.io/github/issues/cctyl/qidian-black-book-filter.svg" alt="GitHub issues"/>
