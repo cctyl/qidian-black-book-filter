@@ -13,7 +13,9 @@
 
 # 前言
 [项目地址](https://github.com/cctyl/qidian-black-book-filter) 
-[演示视频](https://www.bilibili.com/video/BV1tu411L7qW)
+
+
+[演示视频](https://www.bilibili.com/video/BV18P411z7zU)
 
 曾经我也沉迷于小说，也曾**苦恼于找不到想看的小说**。
 每次找小说如同**大海捞针**，**每次都在排行榜上重复查找，重复看见不喜欢的**

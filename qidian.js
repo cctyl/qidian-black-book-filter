@@ -315,4 +315,4 @@ app.get("/getRandom", async (req, res, next) => {
 })
 
 
-app.listen(7094);
+app.listen(8010);
